@@ -1,0 +1,356 @@
+The Problem 
+SSLError: [SSL: WRONG_VERSION_NUMBER]
+
+Means :
+I (your code) tried to connect securely to the website using HTTPS, but the connection failed because I don’t understand the version of security protocol the site is using.
+
+ Wait… What is SSL?
+SSL (now called TLS) is like a security layer used when websites use HTTPS (instead of HTTP).
+It:
+
+Encrypts the data
+
+Ensures your connection is safe and private
+
+When you open a website like https://www.yelu.in, the browser or your Python code:
+
+Says: “Hey, are you secure?”
+
+The server replies: “Yes, let’s talk securely using TLS v1.3”
+
+Python says: “Wait! I only know v1.0 😵‍💫”
+
+BOOM 💥 — Error!
+
+
+| Term                 | Meaning                                                                  |
+| -------------------- | ------------------------------------------------------------------------ |
+| **SSL/TLS**          | Security protocol (used in `https://` websites) — like HTTPS’s bodyguard |
+| **requests**         | Python library to visit websites                                         |
+| **`requests.get()`** | Your code saying “Hi, give me the webpage”                               |
+| **SSL Error**        | The handshake between your code and the site failed                      |
+| **Session**          | Like a browser tab — keeps cookies, headers, etc.                        |
+| **Adapter**          | Special settings attached to sessions (like retrying or SSL rules)       |
+| **User-Agent**       | Tells the website who’s making the request (browser, bot, etc.)          |
+| **verify=False**     | Skips the security check (insecure – only for testing)                   |
+
+
+ Why You Got This as a Beginner
+You're doing this on:
+
+Windows
+
+Python 3.13 (very new, might be buggy)
+
+Maybe behind a corporate network / antivirus / VPN
+And trying to connect to a secure site (https://www.yelu.in) using the requests library.
+
+So Python tries to connect securely — but fails to match the expected SSL protocol — hence the error.
+
+What Can You Do (No Coding Knowledge Needed)
+✅ OPTION 1 — Quickest & Simplest Fix (Just for Testing)
+Change:
+res = requests.get(url, headers=headers)
+To:
+res = requests.get(url, headers=headers, verify=False)
+This turns off the security check (like skipping OTP during login).
+⚠️ Use only for testing — don’t use this for banking apps or real users.
+
+ What Is a Security Protocol?
+A security protocol is like a set of rules that computers use when they talk to each other securely.
+
+Imagine you're sending a secret letter to a friend. You both agree:
+
+To use a lockbox
+
+The box has a specific type of lock (say, “v1”)
+
+You both must have keys that match that lock
+
+If your friend upgrades to a new lock ("v3") but you still have the old key ("v1"), you can't open it. 🧱
+
+This is exactly what happens in computers when talking to a secure website.
+
+Great question, and I’m really glad you're digging deeper. Let's break it down **very simply**.
+
+---
+
+# 🛡️ What Is a **Security Protocol**?
+
+A **security protocol** is like a set of rules that computers use when they talk to each other **securely**.
+
+Imagine you're sending a secret letter to a friend. You both agree:
+
+* To use a **lockbox**
+* The box has a specific type of lock (say, “v1”)
+* You both must have **keys** that match that lock
+
+If your friend upgrades to a new lock ("v3") but you still have the old key ("v1"), you can't open it. 🧱
+
+This is **exactly what happens** in computers when talking to a secure website.
+
+---
+
+## ✅ Example in the Real World
+
+When you open a secure website like:
+
+```
+https://www.google.com
+https://www.yelu.in
+```
+
+Your browser (or Python code) says:
+
+> “Hey server, let’s talk privately and securely — what rules (protocol) do you use?”
+
+The server replies:
+
+> “I use TLS 1.3 (latest secure version)!”
+
+If your Python setup only supports old versions (like TLS 1.0), then:
+
+> ❌ You can’t talk securely — connection fails — hence the error: `WRONG_VERSION_NUMBER`
+
+---
+
+## 🔐 Main Security Protocols for HTTPS
+
+| Protocol      | Full Name                | Status        | Notes                |
+| ------------- | ------------------------ | ------------- | -------------------- |
+| SSL 2.0 / 3.0 | Secure Sockets Layer     | ❌ Obsolete    | Very old             |
+| TLS 1.0       | Transport Layer Security | ⚠️ Deprecated | Not secure anymore   |
+| TLS 1.2       | Transport Layer Security | ✅ Common      | Still widely used    |
+| TLS 1.3       | Transport Layer Security | ✅ Modern      | Most secure and fast |
+
+---
+
+## 🎯 So Yes — **Version Does Matter!**
+
+If your system:
+
+* Tries to connect using **an old or wrong version**
+* While the server expects **a new version**
+
+Then the connection fails. That’s what your error was:
+
+```
+SSLError: [SSL: WRONG_VERSION_NUMBER]
+```
+
+---
+
+## 🧠 In Simple Words:
+
+| You Say                             | Computer Terms          |
+| ----------------------------------- | ----------------------- |
+| “Let's talk secretly”               | Secure HTTPS connection |
+| “What lock do you use?”             | TLS version handshake   |
+| “Oh, I don’t support that version!” | `SSLError` happens      |
+
+---
+
+## 🔧 Why It Matters in Python/Code
+
+You need:
+
+* Python and libraries that **understand modern TLS versions**
+* Some old Python builds or wrong SSL settings might only support **TLS 1.0**, which is rejected by modern websites
+
+That’s why:
+
+* Python 3.11 (with updated SSL) works
+* Python 3.13 might be buggy
+* `requests.get(..., verify=False)` skips the version check — but it’s insecure
+
+---
+
+## ✅ Summary
+
+| Question                     | Answer                                                              |
+| ---------------------------- | ------------------------------------------------------------------- |
+| What is a security protocol? | A rule set for safe communication between computers (like TLS)      |
+| Does version matter?         | Yes! Old versions = blocked. Only TLS 1.2+ is accepted now          |
+| Why did I get an error?      | Your Python tried to connect using a wrong/old/incompatible version |
+
+---
+
+Great question again! Let’s explain **`verify=False`** in a **super simple, beginner-friendly way**.
+
+---
+
+## 🛡️ What is `verify=False` in Python?
+
+When you make a request to a website using `requests.get()` like this:
+
+```python
+import requests
+
+url = "https://example.com"
+response = requests.get(url)
+```
+
+Python (through the `requests` library) tries to:
+
+> ✅ **Verify that the website is safe and real**
+> by checking its **SSL certificate**.
+
+---
+
+### 🧠 What is an SSL Certificate?
+
+It's like an **identity card** for the website.
+
+* It tells your computer: “Yes, I really am Google (or Yelu or Amazon), not a fake site.”
+* It's part of how `https://` keeps you safe.
+
+---
+
+## ❌ What If Something’s Wrong?
+
+If the SSL certificate is:
+
+* Expired
+* Fake
+* Mismatched
+* Or your system can’t validate it properly…
+
+You’ll get an error like this:
+
+```
+requests.exceptions.SSLError: certificate verify failed
+```
+
+---
+
+## ✅ What Does `verify=False` Do?
+
+It tells Python:
+
+> "Hey... **don’t check** if the SSL certificate is valid. Just connect anyway."
+
+Here’s the syntax:
+
+```python
+response = requests.get("https://example.com", verify=False)
+```
+
+It **skips SSL verification**.
+
+---
+
+## 🤔 Is It Safe?
+
+Not really.
+
+| ✅ Good for Testing  | ❌ Not Good for Production  |
+| ------------------- | -------------------------- |
+| Learning purposes   | Banking apps               |
+| Broken or dev sites | Sending personal data      |
+| Internal websites   | Secure user authentication |
+
+If you turn off SSL verification, you're like:
+
+> "I’ll trust whoever this website says they are — no ID needed."
+> Which is risky if you're sending passwords or private data.
+
+---
+
+## 🔒 Real World Analogy:
+
+| Without `verify=False`         | With `verify=False`                                       |
+| ------------------------------ | --------------------------------------------------------- |
+| Bouncer checks ID before entry | You walk into a building without anyone verifying your ID |
+| Secure, but slower             | Fast, but unsafe                                          |
+
+---
+
+## 💡 Summary:
+
+| Term                      | Meaning                                                       |
+| ------------------------- | ------------------------------------------------------------- |
+| `verify=True` *(default)* | Check if the website is **secure and real** (recommended)     |
+| `verify=False`            | **Skip security check** — only use when you're sure it's safe |
+
+---
+
+## 🧪 Example for You
+
+```python
+import requests
+
+url = "https://self-signed.badssl.com/"  # Fake SSL certificate site
+try:
+    res = requests.get(url)
+    print("✅ Success:", res.status_code)
+except Exception as e:
+    print("❌ Error:", e)
+
+# Now try again with verify=False
+res = requests.get(url, verify=False)
+print("✅ Success (insecure way):", res.status_code)
+```
+
+---
+The full form of SSL is Secure Sockets Layer. It is a security protocol that creates an encrypted link between a web server and a browser, ensuring secure communication and protecting sensitive data during online transactions and interactions. 
+
+The full form of SSL is Secure Sockets Layer. It is a security protocol that creates an encrypted link between a web server and a browser, ensuring secure communication and protecting sensitive data during online transactions and interactions. 
+Here's a more detailed explanation:
+Secure:
+SSL provides a secure connection, meaning that data transmitted between the server and browser is encrypted and cannot be easily intercepted by third parties. 
+Sockets:
+Sockets are a way for computers to communicate with each other over a network. SSL uses sockets to establish a secure connection between a web server and a browser. 
+Layer:
+SSL is a layer of security that sits between the application layer (like a web browser) and the transport layer (like TCP/IP). 
+In essence, SSL is the foundation for secure websites, ensuring that when you see "https://" in the address bar, your connection is encrypted and protected. 
+
+verify=False tells Python:
+
+"Don’t check the website’s security certificate. Just connect anyway."
+
+✅ **Exactly!**
+
+`verify=False` tells Python:
+
+> **"Don’t check the website’s security certificate. Just connect anyway."**
+
+---
+
+### 🔒 Normally (default `verify=True`):
+
+Python acts like a security guard:
+
+* “Is this website secure?”
+* “Is it using a valid SSL certificate?”
+* “Does it match the domain?”
+
+If not → ❌ **Throws an error**
+
+---
+
+### 🧯 With `verify=False`:
+
+Python says:
+
+> “I won’t check anything. Just give me the page, even if it might be fake or unsafe.”
+
+✔️ Good for:
+
+* Testing
+* Learning
+* Internal tools
+
+❌ Bad for:
+
+* Sending passwords
+* Dealing with real users
+* Financial, health, or personal data
+
+---
+
+### 🧠 In 1 Line:
+
+> ✅ `verify=True` = Be safe
+> ⚠️ `verify=False` = Trust blindly (only when **you** are sure it's safe)
+
+---

@@ -1,0 +1,97 @@
+🎯 **YES! Exactly — it's just like the DOM.**
+That’s a perfect way to think about it!
+
+---
+
+### ✅ What is the DOM?
+
+> DOM = **Document Object Model**
+> It's a **tree structure** representation of the HTML page in your browser.
+
+When you open **Inspect Element (DevTools)** in Chrome and see tags like `<div>`, `<h1>`, `<a>` —
+➡️ That’s the DOM.
+
+---
+
+### 🥣 `BeautifulSoup` acts like a mini-browser’s DOM builder
+
+It:
+
+* **Parses the HTML**
+* **Builds a tree of elements**
+* Lets you **navigate** like:
+
+  * `.find(...)` (like `document.querySelector(...)`)
+  * `.find_all(...)` (like `document.querySelectorAll(...)`)
+  * `.text` (like `.innerText` or `.textContent`)
+
+---
+
+### 🧠 Example Comparison:
+
+| In Browser (JS)                            | In Python (BeautifulSoup)     |
+| ------------------------------------------ | ----------------------------- |
+| `document.querySelector("h1").textContent` | `soup.find("h1").text`        |
+| `document.querySelectorAll(".box")`        | `soup.find_all(class_="box")` |
+| `element.getAttribute("href")`             | `tag['href']`                 |
+
+---
+
+### 🔄 Summary:
+
+* `response.text` → the HTML source (just like `View Page Source`)
+* `BeautifulSoup(...)` → builds a **DOM-like structure**
+* You now **navigate and extract** just like you do in the browser
+
+---
+
+Would you like a DOM tree visual or go to **Level 2: Scraping from company profile pages**?
+
+🎯 **YES! Exactly — it's just like the DOM.**
+That’s a perfect way to think about it!
+
+---
+
+### ✅ What is the DOM?
+
+> DOM = **Document Object Model**
+> It's a **tree structure** representation of the HTML page in your browser.
+
+When you open **Inspect Element (DevTools)** in Chrome and see tags like `<div>`, `<h1>`, `<a>` —
+➡️ That’s the DOM.
+
+---
+
+### 🥣 `BeautifulSoup` acts like a mini-browser’s DOM builder
+
+It:
+
+* **Parses the HTML**
+* **Builds a tree of elements**
+* Lets you **navigate** like:
+
+  * `.find(...)` (like `document.querySelector(...)`)
+  * `.find_all(...)` (like `document.querySelectorAll(...)`)
+  * `.text` (like `.innerText` or `.textContent`)
+
+---
+
+### 🧠 Example Comparison:
+
+| In Browser (JS)                            | In Python (BeautifulSoup)     |
+| ------------------------------------------ | ----------------------------- |
+| `document.querySelector("h1").textContent` | `soup.find("h1").text`        |
+| `document.querySelectorAll(".box")`        | `soup.find_all(class_="box")` |
+| `element.getAttribute("href")`             | `tag['href']`                 |
+
+---
+
+### 🔄 Summary:
+
+* `response.text` → the HTML source (just like `View Page Source`)
+* `BeautifulSoup(...)` → builds a **DOM-like structure**
+* You now **navigate and extract** just like you do in the browser
+
+---
+
+Would you like a DOM tree visual or go to **Level 2: Scraping from company profile pages**?

@@ -1,0 +1,8 @@
+ What is Web Scraping?
+Web Scraping is the process of extracting data from websites. Instead of manually copying and pasting data, you write a program that:
+
+Visits web pages
+
+Finds the required data (e.g., titles, prices, reviews)
+
+Extracts it and stores it in a usable format (like CSV, JSON, or a database)
