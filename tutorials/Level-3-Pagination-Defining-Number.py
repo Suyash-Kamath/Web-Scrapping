@@ -53,7 +53,7 @@ def extract_company_profile(profile_url):
         return address, mobile_phone, website, contact_number
 
     except Exception as e:
-        print(f"    ❌ Error fetching profile: {e}")
+        print(f"❌ Error fetching profile: {e}")
         return "-", "-", "-", "-"
 
 # --- Function to Scrape One List Page ---
