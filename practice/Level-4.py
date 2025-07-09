@@ -39,14 +39,6 @@ def extract_profile(profile_url):
     return address,website,mobile,contact
 
 
-
-
-
-
-
-
-
-
 def scrape_list(page_url):
     profile_response = requests.get(url=page_url,headers=HEADERS,timeout=20)
     profile_response.raise_for_status()
@@ -71,8 +63,6 @@ def scrape_list(page_url):
             time.sleep(1)
 
 
-
-
 def get_total_pages():
     response = requests.get(url=CATEGORY_URL,headers=HEADERS,timeout=20)
     response.raise_for_status()
@@ -90,11 +80,6 @@ def get_total_pages():
         return maximum
     else:
         return 1
-
-
-
-
-
 
 
 
