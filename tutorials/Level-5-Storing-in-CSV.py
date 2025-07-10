@@ -23,7 +23,7 @@ def get_total_pages():
     try:
         res = requests.get(CATEGORY_URL, headers=HEADERS, timeout=10)
         res.raise_for_status()
-        soup = BeautifulSoup(res.text, 'html.parser')
+        soup = BeautifulSoup(res.text, 'html.parser')   
         page_links = soup.select('div.scroller_with_ul li a.pages_no')
         page_numbers = [int(link.text.strip()) for link in page_links if link.text.strip().isdigit()]
         max_page = max(page_numbers) if page_numbers else 1
