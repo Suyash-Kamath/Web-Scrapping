@@ -1,2 +1,0 @@
-# Extracting Abhinandan's website
-
